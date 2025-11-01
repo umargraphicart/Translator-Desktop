@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Urdu English Translator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 430px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        input, button, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        input, textarea {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.5);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .shortcuts {
+            text-align: center;
+        }
+        
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 8px 0;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .shortcut-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .status {
+            padding: 12px 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        
+        .success { 
+            background: rgba(76, 175, 80, 0.3); 
+            border: 1px solid rgba(76, 175, 80, 0.5);
+        }
+        
+        .error { 
+            background: rgba(244, 67, 54, 0.3); 
+            border: 1px solid rgba(244, 67, 54, 0.5);
+        }
+        
+        .info {
+            background: rgba(33, 150, 243, 0.3);
+            border: 1px solid rgba(33, 150, 243, 0.5);
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .test-buttons button {
+            flex: 1;
+        }
+        
+        .instructions {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        .app-info {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 Urdu English Translator</h1>
+            <p>System-wide Translation - Works Everywhere!</p>
+        </div>
+
+        <div class="card">
+            <h3>🔑 OpenAI API Key</h3>
+            <input type="password" id="apiKey" placeholder="Enter your OpenAI API key (starts with sk-)">
+            <button id="saveKey">💾 Save API Key</button>
+            <div class="instructions">
+                <small>Get your API key from: <a href="https://platform.openai.com/api-keys" style="color: #4CAF50;" target="_blank">OpenAI Platform</a></small>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>⌨️ Global Shortcuts</h3>
+            <div class="shortcuts">
+                <div class="shortcut-item">
+                    <span>🇺🇸 English → 🇵🇰 Urdu</span>
+                    <strong>Ctrl + Shift + 1</strong>
+                </div>
+                <div class="shortcut-item">
+                    <span>🇵🇰 Urdu → 🇺🇸 English</span>
+                    <strong>Ctrl + Shift + 2</strong>
+                </div>
+                <div class="shortcut-item">
+                    <span>📋 Copy Selected Text</span>
+                    <strong>Ctrl + C</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>🧪 Test Translation</h3>
+            <textarea id="testText" placeholder="Enter text to test translation..." rows="3"></textarea>
+            <div class="test-buttons">
+                <button id="testEnToUr">🇺🇸 → 🇵🇰 Test</button>
+                <button id="testUrToEn">🇵🇰 → 🇺🇸 Test</button>
+            </div>
+        </div>
+
+        <div id="status" class="status"></div>
+
+        <div class="card">
+            <h3>💡 How to Use</h3>
+            <div class="instructions">
+                <ol>
+                    <li><strong>Set your OpenAI API key</strong> (required for translation)</li>
+                    <li><strong>Select text</strong> in ANY application (Word, WhatsApp, Browser, etc.)</li>
+                    <li><strong>Press Ctrl+Shift+1</strong> for English → Urdu translation</li>
+                    <li><strong>Press Ctrl+Shift+2</strong> for Urdu → English translation</li>
+                    <li><strong>Text will be automatically replaced</strong> with translation</li>
+                </ol>
+                <p><strong>💡 Tip:</strong> App runs in system tray. Double-click tray icon to show/hide.</p>
+            </div>
+        </div>
+
+        <div class="app-info">
+            Urdu English Translator v1.0 • Made with ❤️
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
