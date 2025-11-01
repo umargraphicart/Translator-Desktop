@@ -1,0 +1,44 @@
+{
+  "name": "urdu-english-translator-desktop",
+  "version": "1.0.0",
+  "description": "System-wide Urdu English Translator",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build-win": "electron-builder --win",
+    "dist": "npm run build"
+  },
+  "keywords": ["translator", "urdu", "english"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^22.0.0",
+    "axios": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^23.0.0"
+  },
+  "build": {
+    "appId": "com.urdu.translator",
+    "productName": "Urdu English Translator",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
